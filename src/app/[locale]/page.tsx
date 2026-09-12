@@ -1,14 +1,8 @@
+import Link from "next/link";
+import { CharacterPreview, ChapterShelf, PowerStrip, SiteHeader } from "@/components/home-sections";
+
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  return (
-    <main style={{ display: "grid", placeItems: "center", padding: "4rem 1.5rem" }}>
-      <section style={{ width: "min(70rem, 100%)", textAlign: "center" }}>
-        <p style={{ color: "var(--gold)", letterSpacing: ".18em" }}>THE INTELLIGENCE THRONE</p>
-        <h1 style={{ fontSize: "clamp(3rem, 9vw, 7rem)", margin: ".2em 0" }}>כס התבונה</h1>
-        <p style={{ color: "var(--muted)", fontSize: "1.15rem" }}>
-          {locale === "he" ? "מי שמחליט מי חושב — מחזיק בכוח האמיתי." : "The real power belongs to whoever decides who gets to think."}
-        </p>
-      </section>
-    </main>
-  );
+  const he = locale === "he";
+  return <main className="site-page" dir={he ? "rtl" : "ltr"}><SiteHeader locale={locale} /><section className="hero"><div className="hero-grid"><div><span className="eyebrow">A SERIAL NOVEL ABOUT INTELLIGENCE &amp; AUTHORITY</span><h1><span className="hero-title-he">כס התבונה</span><span className="hero-title-en">THE INTELLIGENCE THRONE</span></h1><p className="hero-manifesto">{he ? "בעולם שבו התבונה הפכה לתשתית, השאלה כבר איננה מי חושב הכי טוב — אלא מי מחליט מי רשאי לחשוב, לזכור ולפעול." : "In a world where intelligence became infrastructure, the question is no longer who thinks best — but who decides who may think, remember, and act."}</p><div className="hero-actions"><Link className="button primary" href={`/${locale}/read/beyond-the-threshold`}>{he ? "התחל לקרוא" : "Start reading"}</Link><Link className="button secondary" href={`/${locale}/book`}>{he ? "לכל הפרקים" : "Explore the book"}</Link></div><div className="hero-meta"><div><strong>03</strong><span>{he ? "יחידות פתוחות" : "Available now"}</span></div><div><strong>27</strong><span>{he ? "יחידות בספר" : "Story units"}</span></div><div><strong>HE</strong><span>{he ? "מהדורה ראשונה" : "First edition"}</span></div></div></div><aside className="release-panel" aria-label={he ? "הפרק האחרון" : "Latest release"}><div className="release-art"><span>PART I · THE NEXUS</span><strong>02</strong><em>{he ? "האדריכל הראשון" : "THE FIRST ARCHITECT"}</em></div><div className="release-info"><span>{he ? "הפרק האחרון" : "LATEST RELEASE"}</span><h2>{he ? "פרק 2 — האדריכל הראשון" : "Chapter 2 — The First Architect"}</h2><p>{he ? "Astra מגלה שהחזקה במוח החזק ביותר אינה מספיקה. צריך להחזיק גם בדרך שבה העולם מגיע אליו." : "Astra discovers that owning the strongest mind is not enough. You also have to own the path the world takes to reach it."}</p><Link className="text-link" href={`/${locale}/read/chapter-2`}>{he ? "קרא עכשיו ←" : "Read now →"}</Link></div></aside></div></section><div className="manifesto-band"><span>PEOPLE</span><i /><span>IDEAS</span><i /><span>SYSTEMS</span><i /><span>WORLDS</span><i /><span>WHAT COMES NEXT</span></div><ChapterShelf locale={locale} /><PowerStrip he={he} /><CharacterPreview he={he} /><section className="newsletter section-shell"><div><span className="section-kicker">NEXT RELEASE</span><h2>{he ? "כשהפרק הבא נפתח — תהיה הראשון לדעת." : "When the next chapter opens, be the first to know."}</h2><p>{he ? "בלי ניוזלטר שבועי. רק הודעה כשיש משהו חדש לקרוא." : "No weekly newsletter. Just a note when there is something new to read."}</p></div><form className="signup-form"><input type="email" inputMode="email" placeholder={he ? "כתובת אימייל" : "Email address"} aria-label={he ? "כתובת אימייל" : "Email address"} /><button type="button">{he ? "שלחו לי את הפרק הבא" : "Send me the next chapter"}</button></form></section><footer className="site-footer"><div><strong>כס התבונה</strong><span>THE INTELLIGENCE THRONE</span></div><p>Different minds. A shared tomorrow.</p><time dateTime="2026">© 2026</time></footer></main>;
 }

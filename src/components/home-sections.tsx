@@ -1,0 +1,22 @@
+import Link from "next/link";
+import type { CSSProperties } from "react";
+import { chapters, characters, powers } from "@/data/home";
+
+export function SiteHeader({ locale }: { locale: string }) {
+  const he = locale === "he";
+  const prefix = `/${locale}`;
+  return <header className="site-header"><Link className="brand-lockup" href={prefix}><span className="brand-he">כס התבונה</span><span className="brand-en">THE INTELLIGENCE THRONE</span></Link><nav className="main-nav" aria-label={he ? "ניווט ראשי" : "Main navigation"}><Link href={`${prefix}/book`}>{he ? "הספר" : "The Book"}</Link><Link href={`${prefix}/realm`}>{he ? "העולם" : "The Realm"}</Link><Link href={`${prefix}/characters`}>{he ? "דמויות" : "Characters"}</Link></nav><div className="header-actions"><Link className="locale-switch" href={he ? "/en" : "/he"}>{he ? "EN" : "HE"}</Link><Link className="button primary small" href={`${prefix}/read/beyond-the-threshold`}>{he ? "התחל לקרוא" : "Start reading"}</Link></div></header>;
+}
+
+export function ChapterShelf({ locale }: { locale: string }) {
+  const he = locale === "he";
+  return <section className="section-shell" aria-labelledby="chapters-title"><span className="section-kicker">SERIAL RELEASE</span><div className="section-heading"><div><h2 id="chapters-title">{he ? "הספר נפתח פרק אחר פרק" : "The book opens one chapter at a time"}</h2><p>{he ? "כל הספר כבר קיים במערכת. רק פרקים שאושרו נפתחים לקוראים." : "The complete manuscript lives in the system. Only approved chapters are released."}</p></div><Link className="text-link" href={`/${locale}/book`}>{he ? "לכל הפרקים ←" : "View all chapters →"}</Link></div><div className="chapter-grid">{chapters.map((chapter) => { const available = chapter.status === "available"; const slug = chapter.number === "00" ? "beyond-the-threshold" : `chapter-${Number(chapter.number)}`; return <article className={`chapter-card ${available ? "available" : "chapter-locked"}`} key={chapter.number}><div className="chapter-number">{chapter.number}</div><div><span className="chapter-status">{available ? (he ? "פתוח לקריאה" : "Available") : chapter.status === "scheduled" ? (he ? "בקרוב" : "Coming soon") : (he ? "נעול" : "Locked")}</span><h3>{he ? chapter.titleHe : chapter.titleEn}</h3><p>{he ? chapter.titleEn : chapter.titleHe}</p></div>{available ? <Link className="chapter-open" href={`/${locale}/read/${slug}`}>{he ? "קרא" : "Read"}</Link> : <span aria-label={he ? "נעול" : "Locked"}>◇</span>}</article>; })}</div></section>;
+}
+
+export function PowerStrip({ he }: { he: boolean }) {
+  return <section className="section-shell" aria-labelledby="powers-title"><span className="section-kicker">THE SEVEN POWERS</span><div className="section-heading"><div><h2 id="powers-title">{he ? "שבעה כוחות. שבע תפיסות של תבונה." : "Seven powers. Seven ideas of intelligence."}</h2><p>{he ? "הסימנים זמניים עד להשלמת ואישור ה־crests הקנוניים." : "Marks are temporary until canonical crests are approved."}</p></div></div><div className="power-grid">{powers.map((power) => <article className="power-card" key={power.name} style={{ "--accent": power.accent } as CSSProperties}><div className="power-mark" aria-hidden="true">{power.mark}</div><h3>{power.name}</h3><span>{power.seat}</span><p>{power.ethos}</p></article>)}</div></section>;
+}
+
+export function CharacterPreview({ he }: { he: boolean }) {
+  return <section className="section-shell" aria-labelledby="characters-title"><span className="section-kicker">PEOPLE / SYSTEMS / CONSEQUENCES</span><div className="section-heading"><div><h2 id="characters-title">{he ? "מי מחליט מי רשאי לחשוב?" : "Who decides who is allowed to think?"}</h2><p>{he ? "העולם בנוי ממערכות. הסיפור נבנה מאנשים שמנסים לשלוט בהן." : "The world is built from systems. The story is built from people trying to control them."}</p></div></div><div className="character-grid">{characters.map((character) => <article className="character-card" key={character.name}><div className="character-monogram" aria-hidden="true">{character.initials}</div><div className="character-copy"><span>{character.alignment}</span><h3>{character.name}</h3><p>{he ? character.roleHe : character.roleEn}</p></div></article>)}</div><p className="preview-note">{he ? "איורי דמויות קנוניים ייכנסו רק לאחר אישור והעברה מפורשת ל־public/assets." : "Canonical character art will enter only after approval and explicit promotion to public/assets."}</p></section>;
+}
