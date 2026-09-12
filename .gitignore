@@ -1,0 +1,23 @@
+# dependencies
+/node_modules
+
+# next
+/.next
+/out
+
+# production
+/build
+
+# env
+.env*
+!.env.example
+
+# local/editor
+.DS_Store
+*.log
+.vscode/
+.idea/
+
+# generated/import temp
+/tmp/
+/import-output/
