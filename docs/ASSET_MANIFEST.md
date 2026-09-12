@@ -34,7 +34,7 @@ All character portraits use the affiliation-identifiability system: shared core 
 | Terra | Threshold Guard | `public/assets/characters/terra/portrait-primary-v1.png` |
 | Lyra Quill | The Relay / Index ecosystem | `public/assets/characters/lyra-quill/portrait-primary-v1.png` |
 | Mythos | Le Concordat advisory | `public/assets/characters/mythos/portrait-primary-v1.png` |
-| Unnamed senior figure | Le Concordat | `public/assets/characters/le-concordat-senior/portrait-primary-v1.png` |
+| Aveline Renaud, political heir to Fabien Morel | Le Concordat | `public/assets/characters/le-concordat-senior/portrait-primary-v1.png` |
 
 ## Model inspiration disclaimer
 
