@@ -23,5 +23,8 @@
 ## Content ownership
 Word remains the literary archive/master. Supabase is the publishing master for the online edition. Import is explicit and versioned; post-import edits are tracked in `chapter_versions`.
 
+## Local manuscript import
+For local development, `scripts/import_manuscript.py` transforms the private Word master into `content/private/book-he.json`. The cache and source manuscript are ignored by Git. The public Reader only opens units marked `published` in `src/data/book.ts`; the current release set is the prologue and chapters 1-2. Production publishing still requires the planned versioned Supabase import path.
+
 ## Locales
 Hebrew content is required. English fields/routes exist from day one but may remain empty until translation.

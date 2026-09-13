@@ -1,12 +1,7 @@
-export default async function ChapterPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
-  const { locale, slug } = await params;
-  return (
-    <main style={{ padding: "4rem 1.5rem" }}>
-      <article dir={locale === "he" ? "rtl" : "ltr"} style={{ maxWidth: "var(--max-reading)", margin: "0 auto" }}>
-        <p style={{ color: "var(--gold)" }}>CHAPTER</p>
-        <h1>{slug}</h1>
-        <p style={{ color: "var(--muted)" }}>Chapter content will be loaded from Supabase after the manuscript import.</p>
-      </article>
-    </main>
-  );
-}
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { ReaderControls } from "@/components/reader-controls";
+import { NexusPulse } from "@/components/nexus-experience";
+import { bookUnits } from "@/data/book";
+import { getReaderContent } from "@/lib/reader-content";
+export default async function ChapterPage({ params }: { params: Promise<{ locale: string; slug: string }> }) { const { locale, slug } = await params; const unit = bookUnits.find((item) => item.slug === slug); if (!unit || unit.status !== "published") notFound(); const content = await getReaderContent(slug); if (!content) notFound(); const he = locale === "he"; const current = bookUnits.findIndex((item) => item.slug === slug); const next = bookUnits.slice(current + 1).find((item) => item.status === "published"); return <main className="reader-page" dir={he ? "rtl" : "ltr"}><header><Link href={`/${locale}/book`}>{he ? "← חזרה לספר" : "← Back to book"}</Link><ReaderControls slug={slug} locale={locale} /></header><article className="reader-copy"><span>{unit.kind === "prologue" ? (he ? "פרולוג" : "PROLOGUE") : `${he ? "פרק" : "CHAPTER"} ${unit.number}`}</span><h1>{he ? unit.titleHe : unit.titleEn}</h1><p className="reader-subtitle">{he ? unit.titleEn : unit.titleHe}</p><div className="reader-rule" />{content.paragraphs.map((paragraph, index) => <p key={`${slug}-${index}`}>{paragraph}</p>)}</article><NexusPulse slug={slug} locale={locale} /><nav className="reader-nav">{next ? <Link href={`/${locale}/read/${next.slug}`}>{he ? "ליחידה הבאה ←" : "Next unit →"}</Link> : <Link href={`/${locale}/book`}>{he ? "חזרה למדף הספר" : "Back to shelf"}</Link>}</nav></main>; }

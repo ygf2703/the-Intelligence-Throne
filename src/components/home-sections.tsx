@@ -1,6 +1,9 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { chapters, characters, powers } from "@/data/home";
+import { chapters } from "@/data/home";
+import { factions, realmCharacters } from "@/data/realm";
+import { DossierMap } from "@/components/nexus-experience";
 
 export function SiteHeader({ locale }: { locale: string }) {
   const he = locale === "he";
@@ -14,9 +17,14 @@ export function ChapterShelf({ locale }: { locale: string }) {
 }
 
 export function PowerStrip({ he }: { he: boolean }) {
-  return <section className="section-shell" aria-labelledby="powers-title"><span className="section-kicker">THE SEVEN POWERS</span><div className="section-heading"><div><h2 id="powers-title">{he ? "שבעה כוחות. שבע תפיסות של תבונה." : "Seven powers. Seven ideas of intelligence."}</h2><p>{he ? "הסימנים זמניים עד להשלמת ואישור ה־crests הקנוניים." : "Marks are temporary until canonical crests are approved."}</p></div></div><div className="power-grid">{powers.map((power) => <article className="power-card" key={power.name} style={{ "--accent": power.accent } as CSSProperties}><div className="power-mark" aria-hidden="true">{power.mark}</div><h3>{power.name}</h3><span>{power.seat}</span><p>{power.ethos}</p></article>)}</div></section>;
+  return <section className="section-shell" aria-labelledby="powers-title"><span className="section-kicker">THE SEVEN POWERS</span><div className="section-heading"><div><h2 id="powers-title">{he ? "שבעה כוחות. שבע תפיסות של תבונה." : "Seven powers. Seven ideas of intelligence."}</h2><p>{he ? "לכל בית סימן, חומר וצבע משלו — כדי שהכוח יהיה ברור במבט ראשון." : "Every house has its own symbol, material, and colour language."}</p></div><Link className="text-link" href={he ? "/he/realm" : "/en/realm"}>{he ? "לכל הבתים ←" : "Explore the houses →"}</Link></div><div className="power-grid">{factions.map((faction) => <Link className="power-card" href={`${he ? "/he" : "/en"}/realm`} key={faction.slug} style={{ "--accent": faction.accent } as CSSProperties}><Image className="power-crest" src={`/assets/factions/${faction.slug}/crest-primary-v1.png`} alt={`${faction.name} crest`} width={160} height={160} /><h3>{he ? faction.nameHe : faction.name}</h3><span>{faction.seat}</span><p>{faction.credo}</p></Link>)}</div></section>;
+}
+
+export function KnowledgeMap({ locale }: { locale: string }) {
+  return <DossierMap locale={locale} />;
 }
 
 export function CharacterPreview({ he }: { he: boolean }) {
-  return <section className="section-shell" aria-labelledby="characters-title"><span className="section-kicker">PEOPLE / SYSTEMS / CONSEQUENCES</span><div className="section-heading"><div><h2 id="characters-title">{he ? "מי מחליט מי רשאי לחשוב?" : "Who decides who is allowed to think?"}</h2><p>{he ? "העולם בנוי ממערכות. הסיפור נבנה מאנשים שמנסים לשלוט בהן." : "The world is built from systems. The story is built from people trying to control them."}</p></div></div><div className="character-grid">{characters.map((character) => <article className="character-card" key={character.name}><div className="character-monogram" aria-hidden="true">{character.initials}</div><div className="character-copy"><span>{character.alignment}</span><h3>{character.name}</h3><p>{he ? character.roleHe : character.roleEn}</p></div></article>)}</div><p className="preview-note">{he ? "איורי דמויות קנוניים ייכנסו רק לאחר אישור והעברה מפורשת ל־public/assets." : "Canonical character art will enter only after approval and explicit promotion to public/assets."}</p></section>;
+  const featuredCharacters = realmCharacters.filter(([slug]) => ["astra", "mira-vale", "le-concordat-senior"].includes(slug));
+  return <section className="section-shell" aria-labelledby="characters-title"><span className="section-kicker">PEOPLE / SYSTEMS / CONSEQUENCES</span><div className="section-heading"><div><h2 id="characters-title">{he ? "מי מחליט מי רשאי לחשוב?" : "Who decides who is allowed to think?"}</h2><p>{he ? "העולם בנוי ממערכות. הסיפור נבנה מאנשים שמנסים לשלוט בהן." : "The world is built from systems. The story is built from people trying to control them."}</p></div><Link className="text-link" href={he ? "/he/characters" : "/en/characters"}>{he ? "לכל הדמויות ←" : "Meet the characters →"}</Link></div><div className="character-grid">{featuredCharacters.map(([slug, name, role, affiliation]) => <Link className="character-card" href={`${he ? "/he" : "/en"}/characters`} key={slug}><Image src={`/assets/characters/${slug}/portrait-primary-v1.png`} alt={name} width={1024} height={1024} /><div className="character-copy"><span>{affiliation}</span><h3>{name}</h3><p>{role}</p></div></Link>)}</div></section>;
 }

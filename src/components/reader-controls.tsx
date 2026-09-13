@@ -1,0 +1,3 @@
+"use client";
+import { useState } from "react";
+export function ReaderControls({ slug, locale }: { slug: string; locale: string }) { const [size, setSize] = useState(1); const [saved, setSaved] = useState(false); function save() { localStorage.setItem(`throne-progress:${slug}`, "saved"); setSaved(true); } return <div className="reader-controls" dir="ltr"><button onClick={() => setSize((value) => Math.max(.9, value - .1))}>A−</button><button onClick={() => setSize((value) => Math.min(1.3, value + .1))}>A+</button><button className={saved ? "saved" : ""} onClick={save}>{saved ? (locale === "he" ? "נשמר" : "Saved") : (locale === "he" ? "שמור התקדמות" : "Save progress")}</button><style>{`.reader-copy { font-size: ${size}em; }`}</style></div>; }

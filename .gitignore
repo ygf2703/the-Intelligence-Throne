@@ -22,3 +22,6 @@
 # generated/import temp
 /tmp/
 /import-output/
+
+# private literary source and local import cache
+/content/private/

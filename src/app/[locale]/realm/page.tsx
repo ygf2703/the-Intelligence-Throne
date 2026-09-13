@@ -1,3 +1,4 @@
-export default function RealmPage() {
-  return <main style={{ padding: "4rem 1.5rem" }}><h1>The Realm</h1><p>Seven Powers, locations and spoiler-aware lore.</p></main>;
-}
+import Image from "next/image";
+import Link from "next/link";
+import { factions } from "@/data/realm";
+export default async function RealmPage({ params }: { params: Promise<{ locale: string }> }) { const { locale } = await params; const he = locale === "he"; return <main className="realm-page" dir={he ? "rtl" : "ltr"}><header className="book-header"><Link href={`/${locale}`}>כס התבונה <span>THE INTELLIGENCE THRONE</span></Link><Link href={`/${locale}/characters`}>{he ? "הדמויות" : "Characters"}</Link></header><section className="realm-intro"><span>THE SEVEN POWERS</span><h1>{he ? "הכוחות שמעצבים את העולם." : "The powers that shape the world."}</h1><p>{he ? "כל כוח נושא שפה משלו — של תבונה, סמכות, זיכרון והפצה." : "Every power carries its own language of intelligence, authority, memory, and distribution."}</p></section><div className="faction-grid">{factions.map((faction) => <article className="faction-card" key={faction.slug} style={{ "--faction": faction.accent } as React.CSSProperties}><Image src={`/assets/factions/${faction.slug}/crest-primary-v1.png`} alt={`${faction.name} crest`} width={240} height={240} /><span>{faction.seat}</span><h2>{he ? faction.nameHe : faction.name}</h2><p>{faction.credo}</p><small>{he ? "מוביל/ה: " : "Led by: "}{faction.leader}</small></article>)}</div></main>; }

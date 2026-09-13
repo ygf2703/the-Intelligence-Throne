@@ -1,3 +1,4 @@
-export default function CharactersPage() {
-  return <main style={{ padding: "4rem 1.5rem" }}><h1>Characters</h1><p>Character profiles will respect the reader's spoiler level.</p></main>;
-}
+import Image from "next/image";
+import Link from "next/link";
+import { realmCharacters } from "@/data/realm";
+export default async function CharactersPage({ params }: { params: Promise<{ locale: string }> }) { const { locale } = await params; const he = locale === "he"; return <main className="realm-page" dir={he ? "rtl" : "ltr"}><header className="book-header"><Link href={`/${locale}`}>כס התבונה <span>THE INTELLIGENCE THRONE</span></Link><Link href={`/${locale}/realm`}>{he ? "שבעת הכוחות" : "Seven powers"}</Link></header><section className="realm-intro"><span>PEOPLE / SYSTEMS / CONSEQUENCES</span><h1>{he ? "האנשים מאחורי הכוח." : "The people behind power."}</h1><p>{he ? "השיוך של כל דמות גלוי דרך הסיכה, החומר, הצבע והעולם שסביבה." : "Each affiliation is visible through insignia, material, color, and world."}</p></section><div className="portrait-grid">{realmCharacters.map(([slug, name, role, affiliation]) => <article className="portrait-card" key={slug}><Image src={`/assets/characters/${slug}/portrait-primary-v1.png`} alt={name} width={1024} height={1024} /><div><span>{affiliation}</span><h2>{name}</h2><p>{he ? role : role}</p></div></article>)}</div></main>; }
