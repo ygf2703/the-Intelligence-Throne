@@ -34,7 +34,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <CharacterPreview he={he} />
       <PowerStrip he={he} />
       <section className="newsletter section-shell"><div><span className="section-kicker">NEXT RELEASE</span><h2>{he ? "כשהפרק הבא נפתח — תהיה הראשון לדעת." : "When the next chapter opens, be the first to know."}</h2><p>{he ? "בלי ניוזלטר שבועי. רק הודעה כשיש משהו חדש לקרוא." : "No weekly newsletter. Just a note when there is something new to read."}</p></div><form className="signup-form"><input type="email" inputMode="email" placeholder={he ? "כתובת אימייל" : "Email address"} aria-label={he ? "כתובת אימייל" : "Email address"} /><button type="button">{he ? "שלחו לי את הפרק הבא" : "Send me the next chapter"}</button></form></section>
-      <footer className="site-footer"><div><strong>כס התבונה</strong><span>THE INTELLIGENCE THRONE</span></div><p>Different minds. A shared tomorrow.</p><time dateTime="2026">© 2026</time></footer>
+      <footer className="site-footer"><div><strong>כס התבונה</strong><span>THE INTELLIGENCE THRONE</span></div><p>{he ? "תודעות שונות. מחר משותף." : "Different minds. A shared tomorrow."}</p><time dateTime="2026">© 2026 · {he ? "כל הזכויות שמורות" : "All rights reserved"}</time></footer>
     </main>
   );
 }
