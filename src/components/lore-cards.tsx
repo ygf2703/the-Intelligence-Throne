@@ -2,7 +2,7 @@
 
 import { useState, type CSSProperties } from "react";
 import Image from "next/image";
-import { characterInsights, factionInsights, type Locale, type LocalizedText } from "@/data/realm";
+import { characterInsights, characterPowerMarks, factionInsights, type Locale, type LocalizedText } from "@/data/realm";
 
 const copy = (value: LocalizedText, locale: Locale) => value[locale];
 
@@ -11,7 +11,9 @@ export function CharacterLoreCard({ character, he }: { character: readonly [stri
   const [flipped, setFlipped] = useState(false);
   const [slug, name, role, affiliation] = character;
   const insight = characterInsights[slug];
-  return <button type="button" className={flipped ? "lore-card character-lore flipped" : "lore-card character-lore"} onClick={() => setFlipped((value) => !value)} aria-pressed={flipped} aria-label={`${name}. ${he ? "פתח פרופיל" : "Open profile"}`}><span className="lore-card-inner"><span className="lore-card-face lore-card-front" aria-hidden={flipped}><Image src={`/assets/characters/${slug}/portrait-primary-v1.png`} alt={name} width={1024} height={1024} /><span className="lore-card-overlay"><span>{copy(affiliation, locale)}</span><strong>{name}</strong><em>{copy(role, locale)}</em><small>{he ? "לחץ לחשיפה" : "Tap to reveal"}</small></span></span><span className="lore-card-face lore-card-back" aria-hidden={!flipped}><span className="lore-card-kicker">{he ? "תיק דמות" : "CHARACTER DOSSIER"}</span><strong>{name}</strong><em>{copy(role, locale)}</em><span className="lore-card-rule" /><p><b>{he ? "מייצג/ת" : "Represents"}</b>{copy(insight.represents, locale)}</p><p><b>{he ? "השאלה שלך" : "Your question"}</b>{copy(insight.connection, locale)}</p><small>{he ? "לחץ כדי לחזור" : "Tap to return"}</small></span></span></button>;
+  const powerMark = characterPowerMarks[slug];
+  const affiliationName = copy(affiliation, locale);
+  return <button type="button" className={flipped ? "lore-card character-lore flipped" : "lore-card character-lore"} onClick={() => setFlipped((value) => !value)} aria-pressed={flipped} aria-label={`${name}. ${he ? "פתח פרופיל" : "Open profile"}`}><span className="lore-card-inner"><span className="lore-card-face lore-card-front" aria-hidden={flipped}><Image src={`/assets/characters/${slug}/portrait-cast-v2.png`} alt={name} width={1024} height={1024} /><span className="character-power-pin" title={affiliationName}>{powerMark ? <Image src={`/assets/factions/${powerMark}/crest-primary-v1.png`} alt="" width={64} height={64} /> : <span aria-hidden="true">◇</span>}<b>{affiliationName}</b></span><span className="lore-card-overlay"><span>{affiliationName}</span><strong>{name}</strong><em>{copy(role, locale)}</em><small>{he ? "לחץ לחשיפה" : "Tap to reveal"}</small></span></span><span className="lore-card-face lore-card-back" aria-hidden={!flipped}><span className="lore-card-kicker">{he ? "תיק דמות" : "CHARACTER DOSSIER"}</span><strong>{name}</strong><em>{copy(role, locale)}</em><span className="lore-card-rule" /><p><b>{he ? "מייצג/ת" : "Represents"}</b>{copy(insight.represents, locale)}</p><p><b>{he ? "השאלה שלך" : "Your question"}</b>{copy(insight.connection, locale)}</p><small>{he ? "לחץ כדי לחזור" : "Tap to return"}</small></span></span></button>;
 }
 
 export function FactionLoreCard({ faction, he, compact = false }: { faction: { slug: string; name: string; nameHe: string; seat: string; credo: LocalizedText; accent: string }; he: boolean; compact?: boolean }) {

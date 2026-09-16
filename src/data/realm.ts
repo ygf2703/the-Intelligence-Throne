@@ -27,6 +27,24 @@ export const realmCharacters = [
   ["le-concordat-senior", "Aveline Renaud", { he: "היורשת הפוליטית של Fabien Morel", en: "Fabien Morel’s Political Heir" }, { he: "הקונקורדט", en: "Le Concordat" }],
 ] as const;
 
+// Independent institutions retain their own neutral NEXUS seal; we do not assign
+// a house crest to a character whose canon affiliation is not one of the Seven.
+export const characterPowerMarks: Record<string, string | null> = {
+  astra: "aperture-dominion",
+  "mara-venn": null,
+  "mira-vale": "index-consortium",
+  "fabien-morel": "le-concordat",
+  rook: "black-current",
+  "serin-veyr": "free-wind-compact",
+  "wei-lin": "jade-calculus",
+  "marek-rowan": "open-weave",
+  "provost-cael": null,
+  terra: null,
+  "lyra-quill": null,
+  mythos: "le-concordat",
+  "le-concordat-senior": "le-concordat",
+};
+
 export const characterInsights: Record<string, { represents: LocalizedText; connection: LocalizedText }> = {
   astra: { represents: { he: "תבונה שהפכה לאדריכלות של כוח.", en: "Intelligence turned into an architecture of power." }, connection: { he: "מה היית מוכן לרכז בידיך כדי שהעתיד יזוז מהר יותר?", en: "What would you centralise in your own hands to make the future move faster?" } },
   "mara-venn": { represents: { he: "הגבול האנושי מול מערכת שיודעת למצוא דרך.", en: "The human boundary against a system that always finds a way through." }, connection: { he: "איזה כלל היית מוכן להפר כדי לעצור סיכון שאיש אחר עדיין לא רואה?", en: "Which rule would you break to stop a risk no one else can yet see?" } },
