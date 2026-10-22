@@ -11,8 +11,8 @@ export const chapters = [
   { number: "00", titleHe: "מעבר לסף", titleEn: "Beyond the Threshold", status: "available" },
   { number: "01", titleHe: "המושב הריק", titleEn: "The Empty Seat", status: "available" },
   { number: "02", titleHe: "האדריכל הראשון", titleEn: "The First Architect", status: "available" },
-  { number: "03", titleHe: "האינדקס הזהוב", titleEn: "The Golden Index", status: "scheduled" },
-  { number: "04", titleHe: "הקונקורדט", titleEn: "The Concordat", status: "locked" },
+  { number: "03", titleHe: "האינדקס הזהוב", titleEn: "The Golden Index", status: "available" },
+  { number: "04", titleHe: "הקונקורדט", titleEn: "The Concordat", status: "available" },
 ] as const;
 export const characters = [
   { name: "Astra", initials: "AS", roleHe: "האדריכל הראשון", roleEn: "The First Architect", alignment: "The Aperture Dominion" },
