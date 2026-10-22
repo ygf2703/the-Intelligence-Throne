@@ -1,11 +1,11 @@
 import { bookUnits, type BookUnit } from "@/data/book";
 
 /**
- * Publishing switch for the complete edition.
- * Keep this false until the author explicitly approves release of the full manuscript.
+ * Full Hebrew edition is approved for public reading.
+ * Publishing statuses remain in the data model so staged releases can be restored later.
  */
 export const completeEdition = {
-  enabled: false,
+  enabled: true,
   pdfPath: "/downloads/the-intelligence-throne-a5.pdf",
 } as const;
 
